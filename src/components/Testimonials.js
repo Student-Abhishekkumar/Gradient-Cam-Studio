@@ -1,8 +1,8 @@
 const Testimonials = () => {
   const testimonials = [
-    { initial: 'M', name: 'Michael Thompson', text: '"Gradient Cam Studio has transformed how I create tutorial videos..."', rating: 5 },
-    { initial: 'S', name: 'Sarah Johnson', text: '"As a teacher, I use this daily for my online classes..."', rating: 4.5 },
-    { initial: 'D', name: 'David Williams', text: '"The gradient visuals make my videos look professional..."', rating: 5 },
+    { initial: 'P', name: 'Priyanka Chandra', text: '"Gradient Cam Studio has transformed how I create tutorial videos..."', rating: 5 },
+    { initial: 'R', name: 'Ram Gope', text: '"As a teacher, I use this daily for my online classes..."', rating: 4.5 },
+    { initial: 'R', name: 'Raja Sardar', text: '"The gradient visuals make my videos look professional..."', rating: 5 },
   ];
 
   return (

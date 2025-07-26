@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>Gradient Cam Studio | Professional Webcam Recording</title>
+        <title>Gradient Cam Studio | Professional Video Recording</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charSet="UTF-8" />
       </Head>

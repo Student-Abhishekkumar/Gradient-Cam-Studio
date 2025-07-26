@@ -3,19 +3,26 @@ import { useState, useRef, useEffect } from 'react';
 const Recorder = () => {
   const [stream, setStream] = useState(null);
   const [recorder, setRecorder] = useState(null);
-  const [chunks, setChunks] = useState([]);
-  const [recordingStartTime, setRecordingStartTime] = useState(null);
   const [recordedVideos, setRecordedVideos] = useState([]);
   const [status, setStatus] = useState('idle');
   const [notification, setNotification] = useState(null);
+  const [recordingSeconds, setRecordingSeconds] = useState(0);
+  const [timerActive, setTimerActive] = useState(false);
   
   const previewRef = useRef(null);
   const videoListRef = useRef(null);
+  const timerIntervalRef = useRef(null);
+  const chunksRef = useRef([]);
+  const recordingStartRef = useRef(null);
 
   useEffect(() => {
     return () => {
+      // Cleanup on unmount
       if (stream) {
         stream.getTracks().forEach(track => track.stop());
+      }
+      if (timerIntervalRef.current) {
+        clearInterval(timerIntervalRef.current);
       }
     };
   }, [stream]);
@@ -41,6 +48,12 @@ const Recorder = () => {
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
   };
 
+  const formatTimer = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
   const addVideoToGallery = (blob, filename, duration) => {
     const url = URL.createObjectURL(blob);
     const video = {
@@ -51,6 +64,7 @@ const Recorder = () => {
       blob: blob
     };
     
+    // Update state by creating a new array reference
     setRecordedVideos(prev => [video, ...prev]);
     setNotification(`Recording saved: ${filename}`);
   };
@@ -65,21 +79,40 @@ const Recorder = () => {
   };
 
   const playVideo = (url) => {
+    // Stop the camera stream if active
+    if (stream) {
+      stream.getTracks().forEach(track => track.stop());
+      setStream(null);
+    }
+    
+    // Reset buttons
+    setStatus('idle');
+    
+    // Show the recorded video
     if (previewRef.current) {
       previewRef.current.srcObject = null;
       previewRef.current.src = url;
       previewRef.current.controls = true;
       previewRef.current.muted = false;
     }
+    
+    // Scroll to recorder section
     document.querySelector('#recorder').scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   const startCamera = async () => {
     try {
+      // Stop any existing stream
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+      
+      // Start new stream
       const mediaStream = await navigator.mediaDevices.getUserMedia({ 
         video: { width: 1280, height: 720 }, 
         audio: true 
       });
+      
       setStream(mediaStream);
       if (previewRef.current) {
         previewRef.current.srcObject = mediaStream;
@@ -87,6 +120,9 @@ const Recorder = () => {
         previewRef.current.muted = true;
       }
       updateStatus('idle');
+      setTimerActive(false);
+      
+      // Scroll to recorder section
       document.querySelector('#recorder').scrollIntoView({ behavior: 'smooth', block: 'start' });
     } catch (err) {
       alert('Could not access camera/microphone: ' + err.message);
@@ -96,8 +132,15 @@ const Recorder = () => {
   const startRecording = () => {
     if (!stream) return;
     
-    setChunks([]);
-    setRecordingStartTime(Date.now());
+    chunksRef.current = [];
+    setRecordingSeconds(0);
+    setTimerActive(true);
+    recordingStartRef.current = Date.now();
+    
+    // Start timer
+    timerIntervalRef.current = setInterval(() => {
+      setRecordingSeconds(sec => sec + 1);
+    }, 1000);
     
     const mediaRecorder = new MediaRecorder(stream, { 
       mimeType: 'video/webm; codecs=vp9,opus',
@@ -106,17 +149,19 @@ const Recorder = () => {
     
     mediaRecorder.ondataavailable = e => { 
       if (e.data.size > 0) {
-        setChunks(prev => [...prev, e.data]);
+        chunksRef.current.push(e.data);
       }
     };
     
     mediaRecorder.onstop = () => {
-      const duration = Math.round((Date.now() - recordingStartTime) / 1000);
-      const blob = new Blob(chunks, { type: 'video/webm' });
-      const filename = `recording_${new Date().toISOString().replace(/[:.]/g, '-')}.webm`;
+      const duration = Math.round((Date.now() - recordingStartRef.current) / 1000);
+      const blob = new Blob(chunksRef.current, { type: 'video/webm' });
+      const filename = `recording_${new Date().toISOString().replace(/[:.]/g, '-')}.mp4`;
       
       addVideoToGallery(blob, filename, duration);
       updateStatus('idle');
+      setTimerActive(false);
+      clearInterval(timerIntervalRef.current);
     };
     
     mediaRecorder.start();
@@ -139,7 +184,22 @@ const Recorder = () => {
             <span className={`status-indicator ${status}`}></span>
             Live Recording
           </h3>
-          <video ref={previewRef} id="preview" autoPlay muted></video>
+          
+          <div className="preview-container">
+            <video 
+              ref={previewRef} 
+              id="preview" 
+              autoPlay 
+              muted 
+              playsInline
+            ></video>
+            {timerActive && (
+              <div className="timer">
+                {formatTimer(recordingSeconds)}
+              </div>
+            )}
+          </div>
+          
           <div className="controls">
             <button 
               onClick={startCamera} 
