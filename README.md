@@ -1,40 +1,125 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Gradient Cam Studio - Professional Webcam Recording 
 
-## Getting Started
+![Uploading Screenshot 2025-07-26 120729.png…]()
 
-First, run the development server:
 
+Gradient Cam Studio is a professional webcam recording application built with Next.js that allows users to create stunning video content with gradient visuals. Capture, save, and share your moments in high-quality with this modern web application.
+
+## Features ✨
+
+- **High-Quality Recording**: Record videos in HD resolution with crisp audio
+- **Gradient Visuals**: Beautiful gradient backgrounds for professional aesthetics
+- **Easy Video Management**: Download, play, or delete recordings with one click
+- **Responsive Design**: Works perfectly on desktop, tablet, and mobile devices
+- **Real-time Status Indicators**: Visual feedback during recording
+- **Video Gallery**: Organized storage of all recordings
+- **Notifications**: Instant feedback on recording status
+
+## Technologies Used 🛠️
+
+- **Frontend**: Next.js, React
+- **Styling**: Custom CSS with beautiful gradients and animations
+- **Icons**: Font Awesome
+- **Media Handling**: WebRTC API for camera access and recording
+- **Build Tool**: Vite (via Next.js)
+
+## Live Demo 🌐
+
+[View Live Demo](https://gradient-cam-studio.vercel.app/) (Hosted on Vercel)
+
+## Installation and Setup 🚀
+
+### Prerequisites
+- Node.js (v14 or higher)
+- npm (v6 or higher)
+
+### Steps to Run Locally
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/your-username/gradient-cam-studio.git
+cd gradient-cam-studio
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+3. Start the development server:
+```bash
+npm run dev
+```
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+4. Open your browser and visit:
+```
+http://localhost:3000
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+## How to Use 📹
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Start Camera**: Click the "Start Camera" button to enable your webcam
+2. **Start Recording**: Once the camera is active, click "Start Recording"
+3. **Stop Recording**: Click "Stop Recording" when finished
+4. **Manage Videos**:
+   - Download videos using the download button
+   - Play videos in the preview area
+   - Delete unwanted recordings
+5. **View Gallery**: All recordings appear in the video gallery with timestamps and durations
 
-## Learn More
+## Browser Support 🌍
 
-To learn more about Next.js, take a look at the following resources:
+Gradient Cam Studio works best on modern browsers:
+- Chrome (latest)
+- Firefox (latest)
+- Edge (latest)
+- Safari (14.1+)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+**Note**: Safari users may need to enable experimental features for full MediaRecorder API support.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure 📂
 
-## Deploy on Vercel
+```
+gradient-cam-studio/
+├── public/             # Static assets
+├── src/
+│   ├── components/     # React components
+│   │   ├── Header.js
+│   │   ├── Hero.js
+│   │   ├── Stats.js
+│   │   ├── Features.js
+│   │   ├── Recorder.js
+│   │   ├── Testimonials.js
+│   │   └── Footer.js
+│   ├── pages/          # Next.js pages
+│   │   ├── _app.js
+│   │   └── index.js
+│   └── styles/         # Global styles
+│       └── globals.css
+├── package.json
+└── README.md
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contributing 🤝
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License 📄
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments 👏
+
+- [Next.js](https://nextjs.org/) for the powerful React framework
+- [Font Awesome](https://fontawesome.com/) for beautiful icons
+- [WebRTC](https://webrtc.org/) for media capture capabilities
+
+---
+
+**Created with ❤️ by [Abhishek Kumar]** | [GitHub Profile](https://github.com/Student-Abhishekkumar) 
