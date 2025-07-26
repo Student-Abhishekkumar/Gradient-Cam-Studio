@@ -2,6 +2,8 @@
 
 Gradient Cam Studio is a professional webcam recording application built with Next.js that allows users to create stunning video content with gradient visuals. Capture, save, and share your moments in high-quality with this modern web application.
 
+<img width="1900" height="870" alt="Screenshot 2025-07-26 120729" src="https://github.com/user-attachments/assets/4f152468-c19d-4637-af46-1dfacf44b767" />
+
 ## Features ✨
 
 - **High-Quality Recording**: Record videos in HD resolution with crisp audio
