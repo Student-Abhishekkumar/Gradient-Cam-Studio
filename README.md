@@ -36,7 +36,7 @@ Gradient Cam Studio is a professional webcam recording application built with Ne
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/gradient-cam-studio.git
+git clone https://github.com/Student-Abhishekkumar/gradient-cam-studio.git
 cd gradient-cam-studio
 ```
 
